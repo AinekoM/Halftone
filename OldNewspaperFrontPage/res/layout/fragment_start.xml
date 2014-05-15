@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.oldnewspaperfrontpage.StartActivity$PlaceholderFragment" >
+
+    <Button
+        android:id="@+id/button_take_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="74dp"
+        android:onClick="startCamera"
+        android:text="@string/button_take" />
+
+    <Button
+        android:id="@+id/button_load_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_take_photo"
+        android:layout_alignRight="@+id/button_take_photo"
+        android:layout_marginBottom="54dp"
+        android:onClick="loadImage"
+        android:text="@string/button_load" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_load_photo"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="59dp"
+        android:text="@string/app_welcome"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>

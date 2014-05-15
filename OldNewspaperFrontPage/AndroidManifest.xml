@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.oldnewspaperfrontpage"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.oldnewspaperfrontpage.StartActivity"
+            android:label="@string/title_activity_start" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.oldnewspaperfrontpage.ApplyFilterScreen"
+            android:label="@string/title_activity_display_image_screen"
+            android:parentActivityName="com.example.oldnewspaperfrontpage.StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.oldnewspaperfrontpage.StartActivity" />
+        </activity>
+        <activity
+            android:name="com.example.oldnewspaperfrontpage.LoadCameraActivity"
+            android:label="@string/load_camera"
+            android:parentActivityName="com.example.oldnewspaperfrontpage.StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.oldnewspaperfrontpage.StartActivity" />
+        </activity>
+        <activity
+            android:name="com.example.oldnewspaperfrontpage.EditPhotoActivity"
+            android:label="@string/title_activity_edit_photo" >
+        </activity>
+        <activity
+            android:name="com.example.oldnewspaperfrontpage.AddCaptionActivity"
+            android:label="@string/title_activity_add_caption"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+    </application>
+
+</manifest>
