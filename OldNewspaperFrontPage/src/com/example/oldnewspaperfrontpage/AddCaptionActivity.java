@@ -36,7 +36,7 @@ public class AddCaptionActivity extends Activity {
 		}
 	}
 	
-	protected void onSavedInstanceState(Bundle outState)
+	protected void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
 		tempStorage.savePhoto(tempImg);

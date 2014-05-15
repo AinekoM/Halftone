@@ -190,6 +190,7 @@ public class ApplyFilterScreen extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle outState)
 	{
+		super.onSaveInstanceState(outState);
 		storage.savePhoto(tempImg);
 		outState.putString(TEMP_PHOTO_PATH_KEY, storage.getPath());
 		outState.putBoolean(FLAG_HALFTONED_KEY, halftoned);
