@@ -6,13 +6,52 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+/*******************************************************************************
+ * Class inherited halftone that perform halftoning on a given Bitmap image using
+ * circular shapes.
+ * 
+ * @author Milena Mitic
+ * @since		May 2014
+ * @knownBugs	none
+ *
+ ******************************************************************************/
 public class HalftoneCircle extends Halftone{
 	
+	/**************************************************************************
+	 * Constructor of the HalftoneCircle object.
+	 * 
+	 * @param tempImg	The image to be halftoned
+	 * @param imagePath	The path to output file
+	 **************************************************************************/
 	public HalftoneCircle(Bitmap tempImg, String imagePath) {
 		super(tempImg, imagePath);
 		// TODO Auto-generated constructor stub
 	}
 
+	/*********************************************************************
+	 * Paint a grid cell of the image with the halftone version.
+	 * Any inheritted class will implement this method with the appropriate
+	 * shape used for halftoning.
+	 * 
+	 * @param htgrp		The Canvas object of the resulting image.
+	 * @param gridX		The row of the current grid cell in the grid.
+	 * @param gridY		The column of the current grid cell in the grid.
+	 * @param gridSize	The size of the grid.
+	 * @param limitX	The pixel x coordinate limit of the grid cell.
+	 * @param limitY	The pixel y coordinate limit of the grid cell.
+	 * 
+	 * @precondition	The limitX and limitY is calculated by the next
+	 * 						gridX and gridY if the grid cell is part of
+	 * 						the grid or the image's width and/or height
+	 * 						if the cell belong to the excess rim.
+	 * 
+	 * @postcondition	The Canvas object of the resulting image will
+	 * 						be drawn on accordingly.		
+	 * 
+	 * @return			N/A
+	 * 
+	 * @since			1.0
+	 *********************************************************************/
 	protected void paintGrid(Canvas htgrp, int gridX, int gridY, int limitX, int limitY)
 	{
 		Paint paint =new Paint();

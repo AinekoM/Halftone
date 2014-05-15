@@ -18,21 +18,44 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Environment;
 
+/******************************************************************************
+ * A class that handles the saving and loading of bitmap image.
+ * 
+ * @author	Nguyen Doan Bao An
+ * @since	May 2014
+ */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Storage 
 {
 	private String path;
 	
+	/**************************************************************************
+	 * Parameterless constructor for storage, path is set to empty string.
+	 * 
+	 * @param	None
+	 */
 	Storage()
 	{
 		path = "";
 	}
 	
+	/*************************************************************************
+	 * Constructor for storage.
+	 * 
+	 * @param paraPath	The path for the imput/output Bitmap object.
+	 */
 	Storage(String paraPath)
 	{
 		path = paraPath;
 	}
 	
+	/**************************************************************************
+	 * Set the path for storage.
+	 * 
+	 * @param paraPath	The path for the imput/output Bitmap object.
+	 * @return			true if there is no path for this storage object and thus 
+	 * 					a path can be set and false otherwise
+	 */
 	public boolean setPath(String paraPath)
 	{
 		if (!hasPath())
@@ -43,16 +66,36 @@ public class Storage
 		return false;
 	}
 	
+	/**************************************************************************
+	 * Check if the path for storage exist.
+	 * 
+	 * @param	None
+	 * @return	true if there is no path for this storage object and thus 
+	 * 			a path can be set and false otherwise
+	 */
 	public boolean hasPath()
 	{
 		return (path.compareTo("") != 0);
 	}
 	
+	/*************************************************************************
+	 * Retrieve the path for this storage object.
+	 * 
+	 * @param	None
+	 * @return	A String Object representing the path.
+	 */
 	public String getPath()
 	{
 		return path;
 	}
 	
+	/**************************************************************************
+	 * Create a mutable Bitmap object with config RGB_565 and no alpha channel
+	 * from the image at path.
+	 * 
+	 * @param	None
+	 * @return	The Bitmap object if the path is valid and null otherwise
+	 */
 	public Bitmap loadPhoto()
 	{
 		Bitmap photo = null;
@@ -82,6 +125,13 @@ public class Storage
 		return photo;
 	}
 
+	/*************************************************************************
+	 * Save a bitmap object to a jpeg image at the given path.
+	 * 
+	 * @param photo	The Bitmap to be saved
+	 * @return		true if the path is valid and thus save succeed and false
+	 * 				otherwise
+	 */
 	public boolean savePhoto(Bitmap photo)
 	{
 		OutputStream outStream = null;

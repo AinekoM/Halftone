@@ -8,6 +8,17 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+
+/*******************************************************************************
+ * Abstract class that perform the halftoning on a provided bitmap image.
+ * Grid size set to 10. Any child class of Halftone must implement paintGrid
+ * with the appropriate shape used for halftoning.
+ * 
+ * @author Milena Mitic
+ * @since		May 2014
+ * @knownBugs	none
+ *
+ ******************************************************************************/
 public abstract class Halftone {
 	private final static int RGB_VALUE = 255;
 	protected  Bitmap img = null;
@@ -34,9 +45,7 @@ public abstract class Halftone {
      * Converts image into halftone version.
      * 
      * @param none
-     * @pre none
-     * @post none
-     * @return none
+     * @return The Bitmap image already halftoned.
 	 ***************************************************************************************/
 	public Bitmap convert() 
 	{ 
@@ -98,9 +107,10 @@ public abstract class Halftone {
 	
 	/*********************************************************************
 	 * Paint a grid cell of the image with the halftone version.
+	 * Any inheritted class will implement this method with the appropriate
+	 * shape used for halftoning.
 	 * 
-	 * @param img		The original image.
-	 * @param htgrp		The Graphic2D object of the resulting image.
+	 * @param htgrp		The Canvas object of the resulting image.
 	 * @param gridX		The row of the current grid cell in the grid.
 	 * @param gridY		The column of the current grid cell in the grid.
 	 * @param gridSize	The size of the grid.
@@ -112,7 +122,7 @@ public abstract class Halftone {
 	 * 						the grid or the image's width and/or height
 	 * 						if the cell belong to the excess rim.
 	 * 
-	 * @postcondition	The Graphic2D object of the resulting image will
+	 * @postcondition	The Canvas object of the resulting image will
 	 * 						be drawn on accordingly.		
 	 * 
 	 * @return			N/A
