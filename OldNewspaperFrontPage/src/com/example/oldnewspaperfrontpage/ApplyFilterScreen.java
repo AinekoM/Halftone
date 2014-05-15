@@ -12,26 +12,21 @@ import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.os.Build;
+
 
 public class ApplyFilterScreen extends Activity {
 	Bitmap tempImg;	
@@ -224,9 +219,17 @@ public class ApplyFilterScreen extends Activity {
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.halftone_menu, menu);
 	}
-
+/*
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onMenuItemSelected(int aFeatureId, MenuItem aMenuItem) {
+	    if (aFeatureId==Window.FEATURE_CONTEXT_MENU)
+	        return onContextItemSelected(aMenuItem);
+	    else
+	        return super.onMenuItemSelected(aFeatureId, aMenuItem);
+	}
+*/
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
