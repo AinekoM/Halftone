@@ -138,6 +138,11 @@ public class LoadCameraActivity extends Activity {
 		{
 			halftoneButton.setClickable(false);
 		}
+		else
+		{
+			ImageView photoView = (ImageView)findViewById(R.id.cameraPhoto);
+			photoView.setImageBitmap(photo);
+		}
 	}
 
 	@Override

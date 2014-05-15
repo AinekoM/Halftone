@@ -1,5 +1,4 @@
-package apptesting;
-
+package com.example.oldnewspaperfrontpage.test.apptesting;
 import android.graphics.Bitmap;
 
 import com.example.oldnewspaperfrontpage.Halftone;
@@ -22,6 +21,7 @@ public class HaltoneFactoryTest extends TestCase {
 	HalftoneRect tempR = new HalftoneRect(tempImg, tempPath);
 	
 	public void testCreateHalftone() {
+		option = new HalftoneFactory.Option();
 		option.setStyle(HalftoneStyle.DIAMOND);
 		temp = HalftoneFactory.createHalftone(tempImg, tempPath, option);
 		assertEquals("Diamond option should return HalftoneDiamond object", tempD.getClass().equals(temp.getClass()), true);
@@ -33,8 +33,6 @@ public class HaltoneFactoryTest extends TestCase {
 		option.setStyle(HalftoneStyle.RECTANGLE);
 		temp = HalftoneFactory.createHalftone(tempImg, tempPath, option);
 		assertEquals("Rect option should return HalftoneRect object", tempR.getClass().equals(temp.getClass()), true);
-		
-		fail("Not yet implemented");
 	}
 
 }
