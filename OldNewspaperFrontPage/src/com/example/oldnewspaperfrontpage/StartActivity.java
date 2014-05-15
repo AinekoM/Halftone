@@ -42,6 +42,14 @@ public class StartActivity extends Activity {
 			e1.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
+		File temp = new File(absolutePathTempPhoto);
+		temp.delete();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,12 +132,7 @@ public class StartActivity extends Activity {
 		intent.putExtra(SEND_TEMP_IMAGE_PATH_KEY, absolutePathTempPhoto);
 		startActivity(intent);
 	}
-	
-	@Override
-	public void onDestroy(){
-		super.onDestroy();
-		
-	}
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

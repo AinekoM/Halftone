@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import android.os.Environment;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Environment;
@@ -67,6 +69,8 @@ public class Storage
 					BitmapFactory.Options bmOptions = new BitmapFactory.Options();
 					bmOptions.inPurgeable = true;
 					bmOptions.inMutable = true;
+					bmOptions.inDither = true;
+					bmOptions.inPreferredConfig = Config.RGB_565;
 					photo = BitmapFactory.decodeStream(inStream, null, bmOptions);
 				}
 				catch(FileNotFoundException ex)

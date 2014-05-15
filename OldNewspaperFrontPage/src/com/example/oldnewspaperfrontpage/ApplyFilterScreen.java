@@ -174,7 +174,7 @@ public class ApplyFilterScreen extends Activity {
 		if (!halftoned)
 		{
 			shareButton.setClickable(false);
-			editButton.setClickable(false);
+			//editButton.setClickable(false);
 			saveButton.setClickable(false);
 		}
 		displayImage();

@@ -52,7 +52,6 @@ public class EditPhotoActivity extends Activity {
 		{
 			storage = new Storage(savedInstanceState.getString(ORIGINAL_PHOTO_PATH_KEY));
 			tempStorage = new Storage(savedInstanceState.getString(TEMP_PHOTO_PATH_KEY));
-			tempImg = tempStorage.loadPhoto();
 		}
 		tempImg = tempStorage.loadPhoto();
 		displayImage();
@@ -117,6 +116,8 @@ public class EditPhotoActivity extends Activity {
 	}
 	public void confirm(View v){
 		storage.savePhoto(tempImg);
+		File temp = new File(tempStorage.getPath());
+		temp.delete();
 		finish();
 	}
 	@Override
