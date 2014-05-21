@@ -22,6 +22,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
+/*******************************************************************************
+ * The Activity that handles the Load from Camera screen
+ * 
+ * @author 	Nguyen Doan Bao An
+ * @author	Milena Mitic
+ * @since	May 2014
+ */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class LoadCameraActivity extends Activity {
 
@@ -57,6 +64,11 @@ public class LoadCameraActivity extends Activity {
 
 	}
 	
+	/**********************************************************************
+	 * The listener for the Use image for halftoning Button
+	 * 
+	 * @author Nguyen Doan Bao An
+	 **********************************************************************/
 	public class HalftoneButtonClickListener implements OnClickListener
 	{
 		public void onClick(View v) 
@@ -66,6 +78,11 @@ public class LoadCameraActivity extends Activity {
 
 	}
 	
+	/***********************************************************************
+	 * Send an intent to call the Convert screen.
+	 * 
+	 * @param	None
+	 */
 	public void callApplyFilterScreen()
 	{
 		Intent intent = new Intent(this, ApplyFilterScreen.class);
@@ -77,6 +94,8 @@ public class LoadCameraActivity extends Activity {
 	/******************************************************************
 	 * Call the camera app and tell it to capture a photo and save it 
 	 * to the given path.
+	 * 
+	 * @param	None
 	 *******************************************************************/
 	private void takePicture()
 	{

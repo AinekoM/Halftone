@@ -24,6 +24,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.os.Build;
 
+/******************************************************************************
+ * Activity that handles the start screen
+ * 
+ * @author 	Milena Mitic
+ * @author	Nguyen Doan Bao An
+ * @since 	May 2014
+ *
+ */
 public class StartActivity extends Activity {
 	public static final int LOAD_IMAGE_REQUEST = 1;
 	public static final String SEND_TEMP_IMAGE_PATH_KEY = "com.example.oldnewspaperfrontpage.SEND_TEMP_IMAGE_PATH_KEY";
@@ -115,6 +123,13 @@ public class StartActivity extends Activity {
         }
 	}
 	
+	/**************************************************************************
+	 * Create a uniquely named storage file not scnnable by media scanner and
+	 * remember the path.
+	 * 
+	 * @return	The file created.
+	 * @throws 	IOException
+	 */
 	private File createImageFile() throws IOException{
 		//Give unique name by using time stamp
 		String timeStamp = new SimpleDateFormat("HHmmss_ddMMyyyy").format(new Date());
@@ -126,6 +141,11 @@ public class StartActivity extends Activity {
 		return image;
 	}
 	
+	/**************************************************************************
+	 * Send an intent to start the Load from Camera screen
+	 * 
+	 * @param view	The button that calls this function.
+	 */
 	public void startCamera(View view)
 	{
 		Intent intent = new Intent(this, LoadCameraActivity.class);

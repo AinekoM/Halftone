@@ -24,6 +24,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.os.Build;
 
+/*******************************************************************************
+ * The activity that handles the edit photo screen
+ * 
+ * @author 	Milena Mitic
+ * @author	Nguyen Doan Bao An
+ * @since	May 2014
+ */
 public class EditPhotoActivity extends Activity {
 	public final static String FLAG_EDITED_KEY = "com.example.oldnewspaperfrontpage.FLAG_EDITED_KEY";
 	static final String TEMP_PHOTO_PATH_KEY = "com.example.oldnewspaperfrontpage.TEMP_PHOTO_PATH";
@@ -73,12 +80,24 @@ public class EditPhotoActivity extends Activity {
 		displayImage();
 	}
 	
+	/**************************************************************************
+	 * Display the current Bitmap.
+	 * 
+	 * @param	None
+	 */
 	private void displayImage() {
 		ImageView viewImage = (ImageView) findViewById(R.id.imageView1);
 		viewImage.setImageBitmap(tempImg);
 		
 	}
-
+	
+	/**************************************************************************
+	 * Create a uniquely named storage file not scnnable by media scanner and
+	 * remember the path.
+	 * 
+	 * @return	The file created.
+	 * @throws 	IOException
+	 */
 	private File createImageFile() throws IOException{
 		//Give unique name by using time stamp
 		String timeStamp = new SimpleDateFormat("HHmmss_ddMMyyyy").format(new Date());
@@ -90,21 +109,17 @@ public class EditPhotoActivity extends Activity {
 		return image;
 	}
 	
+	/************************************************************************
+	 * Send an intent to call the add caption overlay.
+	 * 
+	 * @param v	The view that calls this method.
+	 */
 	public void addCaption(View v){
 		tempImg = storage.loadPhoto();
 		tempStorage.savePhoto(tempImg);
 		Intent intent = new Intent(this, AddCaptionActivity.class);
 		intent.putExtra(FLAG_EDITED_KEY, tempStorage.getPath());
 		startActivity(intent);
-	}
-	
-	private void changePhoto() {
-		Canvas temp = new Canvas(tempImg);
-		Paint paint = new Paint();
-		RectF rect = new RectF(0.0f, 0.0f, 150.0f, 150.0f);
-		paint.setColor(Color.BLACK);
-		temp.drawOval(rect, paint);
-		
 	}
 
 	@Override

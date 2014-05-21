@@ -27,7 +27,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
-
+/******************************************************************************
+ * The Activity that handles the Convert Screen
+ * 
+ * @author 	Milena Mitic
+ * @author	Nguyen Doan Bao An
+ * @since	May 2014
+ */
 public class ApplyFilterScreen extends Activity {
 	Bitmap tempImg;	
 	final String TEMP_PHOTO_PATH_KEY = "com.example.oldnewspaperfrontpage.TEMP_PHOTO_PATH";
@@ -37,10 +43,12 @@ public class ApplyFilterScreen extends Activity {
 	Storage permStorage = null;
 	boolean halftoned = false;
 	
-	//public void chooseShape(View v){
-		
-	//}
-	
+	/**************************************************************************
+	 * The listener for the convert button.
+	 * 
+	 * @author 	Nguyen Doan Bao An
+	 * @author	Milena Mitic
+	 */
 	public class ConvertButtonClickListener implements OnClickListener
 	{
 		public void onClick(View v) 
@@ -55,6 +63,11 @@ public class ApplyFilterScreen extends Activity {
 
 	}
 	
+	/**************************************************************************
+	 * The listener for the share button.
+	 * 
+	 * @author 	Nguyen Doan Bao An
+	 */
 	public class ShareButtonClickListener implements OnClickListener
 	{
 		public void onClick(View v) 
@@ -67,6 +80,11 @@ public class ApplyFilterScreen extends Activity {
 
 	}	
 	
+	/**************************************************************************
+	 * The listener for the edit button.
+	 * 
+	 * @author 	Milena Mitic
+	 */
 	public class EditButtonClickListener implements OnClickListener
 	{
 		public void onClick(View v) 
@@ -78,6 +96,12 @@ public class ApplyFilterScreen extends Activity {
 		}
 	}
 	
+	/**************************************************************************
+	 * The listener for the save button.
+	 * 
+	 * @author	Milena Mitic
+	 * @author 	Nguyen Doan Bao An
+	 */
 	public class SaveButtonClickListener implements OnClickListener
 	{
 		public void onClick(View v) 
@@ -89,6 +113,11 @@ public class ApplyFilterScreen extends Activity {
 		}
 	}	
 	
+	/*************************************************************************
+	 * Save the current bitmap to a file scannable by gallery and media scanner
+	 * 
+	 * @param v	The view that calls this method.
+	 */
 	private void save(View v) {
 		permStorage = new Storage();
 		try {
@@ -126,6 +155,8 @@ public class ApplyFilterScreen extends Activity {
 	/***********************************************************************
 	 * Send an intent to tell the media scanner to pick up the newly saved
 	 * photo.
+	 * 
+	 * @param	None
 	 **********************************************************************/
 	private void galleryAddPic() 
 	{
@@ -138,6 +169,11 @@ public class ApplyFilterScreen extends Activity {
 		this.sendBroadcast(mediaScanIntent);
 	}
 	
+	/************************************************************************
+	 * Send an intent to call the edit image screen.
+	 * 
+	 * @param v	The view that calls this method
+	 */
 	private void edit(View v) {
 		Intent intent = new Intent(this, EditPhotoActivity.class);
 		intent.putExtra(StartActivity.SEND_TEMP_IMAGE_PATH_KEY, storage.getPath());
@@ -196,6 +232,13 @@ public class ApplyFilterScreen extends Activity {
 		outState.putBoolean(FLAG_HALFTONED_KEY, halftoned);
 	}
 
+	/**************************************************************************
+	 * Send an itent to call the applications on the device that can share
+	 * an image and allow the user to pick one to share the current image
+	 * in storage.
+	 * 
+	 * @param view	The view that calls this method
+	 */
 	public void share(View view)
 	{
 		Uri imageUri = Uri.fromFile(new File(storage.getPath()));
@@ -220,15 +263,7 @@ public class ApplyFilterScreen extends Activity {
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.halftone_menu, menu);
 	}
-/*
-	@Override
-	public boolean onMenuItemSelected(int aFeatureId, MenuItem aMenuItem) {
-	    if (aFeatureId==Window.FEATURE_CONTEXT_MENU)
-	        return onContextItemSelected(aMenuItem);
-	    else
-	        return super.onMenuItemSelected(aFeatureId, aMenuItem);
-	}
-*/
+
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -274,11 +309,22 @@ public class ApplyFilterScreen extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**************************************************************************
+	 * Display the current Bitmap.
+	 * 
+	 * @param	None
+	 */
 	public void displayImage(){
 		ImageView viewImage = (ImageView) findViewById(R.id.display_image);
 		viewImage.setImageBitmap(tempImg);
 	}
-
+	
+	/**************************************************************************
+	 * Perform halftoning on the current Bitmap with the given options.
+	 * 
+	 * @param option	The option specified by the user for this halftoning.
+	 * @throws FileNotFoundException
+	 */
 	public void halftone(HalftoneFactory.Option option) throws FileNotFoundException{
 		Halftone filter = HalftoneFactory.createHalftone(tempImg, storage.getPath(), option);
 		FileOutputStream out = new FileOutputStream(storage.getPath());

@@ -16,6 +16,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+/*******************************************************************************
+ * The activity that handles the add caption overlay
+ * 
+ * @author	Milena Mitic
+ * @author 	Nguyen Doan Bao An
+ * @since	May 2014
+ */
 public class AddCaptionActivity extends Activity {
 	Bitmap tempImg;	
 	Storage tempStorage = null;
@@ -43,12 +50,23 @@ public class AddCaptionActivity extends Activity {
 		outState.putString(TEMP_PHOTO_PATH_KEY, tempStorage.getPath());
 	}
 	
+	/***************************************************************************
+	 * Retrieve the text from the textfield and add it to the image.
+	 * 
+	 * @param v	The view that calls this method.
+	 */
 	public void getText(View v){
 		EditText text = (EditText) findViewById(R.id.editText);
 		String caption = text.getText().toString();
 		addCaption(caption);
 	}
 
+	/***************************************************************************
+	 * Draw a given string onto the bottom of the image as white letters on
+	 * black background. Then escape the overlay.
+	 * 
+	 * @param caption	The string to be drawn onto the image.
+	 */
 	private void addCaption(String caption) {
 		Canvas temp = new Canvas(tempImg);
 		Paint p = new Paint();
