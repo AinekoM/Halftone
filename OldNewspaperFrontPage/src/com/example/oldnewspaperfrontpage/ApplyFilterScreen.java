@@ -56,9 +56,10 @@ public class ApplyFilterScreen extends Activity {
 			Button convertButton = (Button)v;
 			convertButton.setClickable(false);
 			
-			openContextMenu(v);
+			chooseFilter(v);
 				
 			convertButton.setClickable(true);
+			
 		}
 
 	}
@@ -180,11 +181,17 @@ public class ApplyFilterScreen extends Activity {
 		startActivity(intent);
 	}
 	
+	private void chooseFilter(View v) {
+		Intent intent = new Intent(this, ChooseFilterActivity.class);
+		intent.putExtra(StartActivity.SEND_TEMP_IMAGE_PATH_KEY, storage.getPath());
+		startActivity(intent);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_display_image_screen);
-		registerForContextMenu(findViewById(R.id.convert_button));
+		//registerForContextMenu(findViewById(R.id.convert_button));
 		if (savedInstanceState == null)
 		{
 			//imagePath = getIntent().getStringExtra("tempImagePath");
@@ -338,7 +345,7 @@ public class ApplyFilterScreen extends Activity {
 		Button saveButton = (Button)findViewById(R.id.save_button);
 		saveButton.setClickable(true);
 	}
-
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

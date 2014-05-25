@@ -51,7 +51,16 @@
         <activity
             android:name="com.example.oldnewspaperfrontpage.AddCaptionActivity"
             android:label="@string/title_activity_add_caption"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.example.oldnewspaperfrontpage.ChooseFilterActivity"
+            android:label="@string/title_activity_choose_filter"
+            android:parentActivityName="com.example.oldnewspaperfrontpage.ApplyFilterScreen" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.oldnewspaperfrontpage.ApplyFilterScreen" />
         </activity>
     </application>
 

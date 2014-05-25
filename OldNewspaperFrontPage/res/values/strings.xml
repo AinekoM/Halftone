@@ -21,5 +21,9 @@
     <string name="diamond">Diamonds</string>
     <string name="rectangle">Rectangles</string>
     <string name="circle">Circles</string>
+    <string name="title_activity_choose_filter">ChooseFilterActivity</string>
+    <string name="applynegative">Negative</string>
+    <string name="applyhalftone">Halftone</string>
+    <string name="applygaussian">Gaussian</string>
 
 </resources>
