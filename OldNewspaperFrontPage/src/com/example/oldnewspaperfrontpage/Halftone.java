@@ -5,6 +5,7 @@ import java.io.File;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
@@ -19,10 +20,10 @@ import android.graphics.RectF;
  * @knownBugs	none
  *
  ******************************************************************************/
-public abstract class Halftone {
+public abstract class Halftone extends ImageProcessing {
 	private final static int RGB_VALUE = 255;
-	protected  Bitmap img = null;
-	protected	 int grid = 0;
+	protected int grid;
+	protected int angle;
 	//private  File outputfile = null;
 	
 	/****************************************************************************************
@@ -36,10 +37,16 @@ public abstract class Halftone {
      * @return new Halftone object
 	 *****************************************************************************************/
 	public Halftone(Bitmap tempImg, String imagePath){
-		img = tempImg;
+		super(tempImg, imagePath);
 		grid = 10;
+		angle = 20;
 	}
 	
+	public Halftone(Bitmap tempImg, String imagePath, int paraAngle){
+		super(tempImg, imagePath);
+		grid = 10;
+		angle = paraAngle;
+	}
 	
 	/***************************************************************************************
      * Converts image into halftone version.
@@ -49,9 +56,12 @@ public abstract class Halftone {
 	 ***************************************************************************************/
 	public Bitmap convert() 
 	{ 
+		final int INIT_FLAG = 9000;
 		Canvas halftone = new Canvas(img);
+		//halftone.save(INIT_FLAG);
 		boolean widthExceed = false, heightExceed = false;
 		int imgWidth = img.getWidth(), imgHeight = img.getHeight(), gridWidth = imgWidth / grid, gridHeight = imgHeight / grid;
+		//halftone.rotate(angle, imgWidth / 2f, imgHeight / 2f);
 		//Check for the grid size.
 		if (grid > imgWidth || grid > imgHeight)
 		{
@@ -102,7 +112,36 @@ public abstract class Halftone {
 				paintGrid(halftone, gridX, gridY, imgWidth, imgHeight);
 			}
 		}
+		//halftone.restore();
 		return img;
+	}
+	
+	protected void paintGrid(Canvas htgrp, int gridX, int gridY, int limitX, int limitY)
+	{
+		float average = getGridAverage(gridX, gridY, limitX, limitY);
+		paintGrid(htgrp, average, gridX * grid, gridY * grid);
+	}
+	
+	protected float getGridAverage(int gridX, int gridY, int limitX, int limitY)
+	{
+		float average = 0, count = 0, startX = gridX * grid, startY = gridY * grid;
+		//Taking the average of the R, B and G channel of each pixel in the 
+		//grid cell to get the grayscale value.
+		for (int x = (int) startX; x < limitX; x++)
+		{
+			for (int y = (int) startY; y < limitY; y++)
+			{
+				int p = img.getPixel(x, y);
+				double currAverage = ((double)Color.blue(p) + (double)Color.red(p) + (double)Color.green(p)) / 3;
+				//Pre revision 1.1, the summing up is not necessary but the 
+				//value will be assigned back to each channel of the pixel.
+				average += currAverage; 
+				count++;
+			}
+		}
+		//Taking the average of grayscale values of all pixels in the cell. 
+		average = average / count;
+		return average;
 	}
 	
 	/*********************************************************************
@@ -129,5 +168,5 @@ public abstract class Halftone {
 	 * 
 	 * @since			1.0
 	 *********************************************************************/
-	abstract protected void paintGrid(Canvas htgrp, int gridX, int gridY, int limitX, int limitY);
+	abstract protected void paintGrid(Canvas htgrp, float average, int startX, int startY);
 }

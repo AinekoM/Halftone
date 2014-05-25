@@ -51,9 +51,10 @@ public class HalftoneRect extends Halftone{
 	 * 
 	 * @since			1.0
 	 *********************************************************************/
-	protected void paintGrid(Canvas htgrp, int gridX, int gridY, int limitX, int limitY)
+	protected void paintGrid(Canvas htgrp, float average, int startX, int startY)
 	{
 		Paint paint =new Paint();
+		/*
 		float average = 0, count = 0, startX = gridX * grid, startY = gridY * grid;
 		//Taking the average of the R, B and G channel of each pixel in the 
 		//grid cell to get the grayscale value.
@@ -72,6 +73,7 @@ public class HalftoneRect extends Halftone{
 		}
 		//Taking the average of grayscale values of all pixels in the cell. 
 		average = average / count;
+		*/
 		//If the cell is to be absolute white.
 		if (average == 0 || grid == 1 && average <= 127)
 		{

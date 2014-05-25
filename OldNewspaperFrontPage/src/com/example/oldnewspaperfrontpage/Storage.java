@@ -27,7 +27,10 @@ import android.os.Environment;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Storage 
 {
+	public static int STD_MAX_WIDTH = 1920;
+	public static int STD_MAX_HEIGHT = 1200;
 	private String path;
+	private int maxPixCount;
 	
 	/**************************************************************************
 	 * Parameterless constructor for storage, path is set to empty string.
@@ -37,6 +40,7 @@ public class Storage
 	Storage()
 	{
 		path = "";
+		maxPixCount = STD_MAX_WIDTH * STD_MAX_HEIGHT;
 	}
 	
 	/*************************************************************************
@@ -47,6 +51,7 @@ public class Storage
 	Storage(String paraPath)
 	{
 		path = paraPath;
+		maxPixCount = STD_MAX_WIDTH * STD_MAX_HEIGHT;
 	}
 	
 	/**************************************************************************
@@ -110,7 +115,16 @@ public class Storage
 					//try to read the photo into the bitmap object
 					inStream = new FileInputStream(tempImage);
 					BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+					bmOptions.inJustDecodeBounds = true;
 					bmOptions.inPurgeable = true;
+					photo = BitmapFactory.decodeStream(inStream, null, bmOptions);
+					bmOptions.inJustDecodeBounds = false;
+					int pixCount = photo.getWidth() + photo.getHeight();
+					if (pixCount > maxPixCount)
+					{
+						int scale = maxPixCount / pixCount;
+						bmOptions.inSampleSize = (int)Math.sqrt(scale);
+					}
 					bmOptions.inMutable = true;
 					bmOptions.inDither = true;
 					bmOptions.inPreferredConfig = Config.RGB_565;
