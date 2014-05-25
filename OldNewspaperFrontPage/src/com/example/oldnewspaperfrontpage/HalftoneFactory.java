@@ -18,7 +18,7 @@ public class HalftoneFactory {
 	 * @author 	Nguyen Doan Bao An
 	 * @since	May 2014
 	 */
-	public static class Option
+	public static class Option implements FactoryOption
 	{
 		//The styles currently implemented
 		public enum HalftoneStyle
