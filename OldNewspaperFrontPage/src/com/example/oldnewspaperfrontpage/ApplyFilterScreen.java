@@ -56,7 +56,7 @@ public class ApplyFilterScreen extends Activity {
 			Button convertButton = (Button)v;
 			convertButton.setClickable(false);
 			
-			chooseFilter(v);
+			openContextMenu(v);
 				
 			convertButton.setClickable(true);
 			
@@ -191,7 +191,7 @@ public class ApplyFilterScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_display_image_screen);
-		//registerForContextMenu(findViewById(R.id.convert_button));
+		registerForContextMenu(findViewById(R.id.convert_button));
 		if (savedInstanceState == null)
 		{
 			//imagePath = getIntent().getStringExtra("tempImagePath");
