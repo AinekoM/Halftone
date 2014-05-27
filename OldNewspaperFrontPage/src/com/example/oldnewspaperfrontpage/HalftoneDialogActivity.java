@@ -64,7 +64,12 @@ public class HalftoneDialogActivity extends Activity implements OnSeekBarChangeL
 	
 	public void applyHalftone(View v){
 		//TODO: call halftone factory with option and angle
-		halftone(option, angle);
+		try {
+			halftone(option, angle);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
