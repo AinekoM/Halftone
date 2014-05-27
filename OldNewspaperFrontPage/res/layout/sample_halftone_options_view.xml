@@ -1,0 +1,62 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.example.oldnewspaperfrontpage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.example.oldnewspaperfrontpage.HalftoneOptionsView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="#ccc"
+        android:paddingBottom="40dp"
+        android:paddingLeft="20dp"
+        app:exampleColor="#33b5e5"
+        app:exampleDimension="24sp"
+        app:exampleDrawable="@android:drawable/ic_menu_add"
+        app:exampleString="Hello, HalftoneOptionsView" />
+
+    <LinearLayout
+        android:layout_width="298dp"
+        android:layout_height="302dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_halftone_angle"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <SeekBar
+            android:id="@+id/seekBar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="@integer/m90" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radio0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/diamond" />
+
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rectangle" />
+
+            <RadioButton
+                android:id="@+id/radio2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/circle" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+</FrameLayout>
