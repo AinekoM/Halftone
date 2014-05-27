@@ -25,5 +25,10 @@
     <string name="applynegative">Negative</string>
     <string name="applyhalftone">Halftone</string>
     <string name="applygaussian">Gaussian</string>
+    <string name="halftone_dialog">Halftone Settings</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="set_halftone_angle">Set angle:</string>
+
 
 </resources>
