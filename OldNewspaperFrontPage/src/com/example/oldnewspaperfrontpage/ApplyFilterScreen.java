@@ -283,7 +283,7 @@ public class ApplyFilterScreen extends Activity {
 	    	case R.id.action_settings:
 	    		return true;
 	    		
-	        case R.id.diamond:
+	        case R.id.applyht:
 			try {
 				option.setStyle(HalftoneStyle.DIAMOND);
 				halftone(option);
@@ -293,7 +293,7 @@ public class ApplyFilterScreen extends Activity {
 				e.printStackTrace();
 			}
 	            
-	        case R.id.rectangle:
+	        case R.id.applynt:
 			try {
 				option.setStyle(HalftoneStyle.RECTANGLE);
 				halftone(option);
@@ -302,7 +302,7 @@ public class ApplyFilterScreen extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        case R.id.circle:
+	        case R.id.applygs:
 			try {
 				option.setStyle(HalftoneStyle.CIRCLE);
 				halftone(option);
