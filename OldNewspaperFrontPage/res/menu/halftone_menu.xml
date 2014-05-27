@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/diamond"
-          android:title="@string/diamond"/>
-    <item android:id="@+id/rectangle"
-          android:title="@string/rectangle" />
-    <item android:id="@+id/circle"
-          android:title="@string/circle" />
+    <item android:id="@+id/applyht"
+          android:title="@string/applyhalftone"/>
+    <item android:id="@+id/applynt"
+          android:title="@string/applynegative" />
+    <item android:id="@+id/applygs"
+          android:title="@string/applygaussian" />
 </menu>
