@@ -29,6 +29,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="set_halftone_angle">Set angle:</string>
-
+    <string name="title_activity_halftone_dialog">HalftoneDialogActivity</string>
 
 </resources>
