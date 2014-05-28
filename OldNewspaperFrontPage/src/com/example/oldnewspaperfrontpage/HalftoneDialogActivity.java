@@ -22,9 +22,15 @@ import android.widget.TextView;
 
 public class HalftoneDialogActivity extends Activity implements OnSeekBarChangeListener{
 	final String TEMP_PHOTO_PATH_KEY = "com.example.oldnewspaperfrontpage.TEMP_PHOTO_PATH";
+	final String TEMP_STYLE_KEY = "com.example.oldnewspaperfrontpage.TEMP_STYLE";
+	final String TEMP_ANGLE_KEY = "com.example.oldnewspaperfrontpage.TEMP_ANGLE";
 	private SeekBar bar;
 	private TextView currentValue;
 	int angle = 0;
+	int style = 0;
+	static final int HALFTONE_STYLE_DIAMOND = 0;
+	static final int HALFTONE_STYLE_RECTANGLE = 1;
+	static final int HALFTONE_STYLE_CIRCLE = 2;
 	Storage storage;
 	Bitmap img;
 	HalftoneFactory.Option option = new HalftoneFactory.Option();
@@ -38,11 +44,31 @@ public class HalftoneDialogActivity extends Activity implements OnSeekBarChangeL
 			storage = new Storage(getIntent().getStringExtra(StartActivity.SEND_TEMP_IMAGE_PATH_KEY));
 		}else 		{
 			storage = new Storage(savedInstanceState.getString(TEMP_PHOTO_PATH_KEY));
+			angle = savedInstanceState.getInt(TEMP_ANGLE_KEY);
+			style = savedInstanceState.getInt(TEMP_STYLE_KEY);
+			switch (style)
+			{
+			case HALFTONE_STYLE_CIRCLE:
+				option.setStyle(HalftoneStyle.CIRCLE);
+				break;
+			case HALFTONE_STYLE_DIAMOND:
+				option.setStyle(HalftoneStyle.DIAMOND);
+				break;
+			case HALFTONE_STYLE_RECTANGLE:
+				option.setStyle(HalftoneStyle.RECTANGLE);
+			}
 		}
 		currentValue = (TextView)findViewById(R.id.angleValue);
 		Button okButton = (Button)findViewById(R.id.dialogok);
 		okButton.setOnClickListener(new OkButtonClickListener());
 		img = storage.loadPhoto();
+	}
+	
+	public void onSaveInstanceState(Bundle outState)
+	{
+		outState.putString(TEMP_PHOTO_PATH_KEY, storage.getPath());
+		outState.putInt(TEMP_ANGLE_KEY, angle);
+		outState.putInt(TEMP_STYLE_KEY, style);
 	}
 	
 	public class OkButtonClickListener implements OnClickListener
@@ -76,14 +102,17 @@ public class HalftoneDialogActivity extends Activity implements OnSeekBarChangeL
 	
 	public void setOptionDiamond(View v){
 		option.setStyle(HalftoneStyle.DIAMOND);
+		style = HALFTONE_STYLE_DIAMOND;
 	}
 	
 	public void setOptionRectangle(View v){
 		option.setStyle(HalftoneStyle.RECTANGLE);
+		style = HALFTONE_STYLE_RECTANGLE;
 	}
 	
 	public void setOptionCircle(View v){
 		option.setStyle(HalftoneStyle.CIRCLE);
+		style = HALFTONE_STYLE_CIRCLE;
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
