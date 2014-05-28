@@ -142,7 +142,8 @@ public class HalftoneDialogActivity extends Activity implements OnSeekBarChangeL
 		option.setAngle(degree);
 		Halftone filter = HalftoneFactory.createHalftone(img, storage.getPath(), option);
 		FileOutputStream out = new FileOutputStream(storage.getPath());
-		filter.convert().compress(Bitmap.CompressFormat.JPEG, 100, out);
+		img = filter.convert();
+		img.compress(Bitmap.CompressFormat.JPEG, 100, out);
 		storage.savePhoto(img);
 		finish();
 	}

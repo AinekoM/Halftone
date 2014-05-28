@@ -41,9 +41,9 @@ public abstract class Halftone extends ImageProcessing {
 	public Halftone(Bitmap tempImg, String imagePath){
 		super(tempImg, imagePath);
 		grid = 10;
-		angle = 0;
+		angle = 45;
 	}
-	
+
 	public void setAngle(int paraAngle)
 	{
 		angle = paraAngle;

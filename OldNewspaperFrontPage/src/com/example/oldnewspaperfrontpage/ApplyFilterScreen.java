@@ -340,14 +340,10 @@ public class ApplyFilterScreen extends Activity {
 	 * @throws FileNotFoundException
 	 */
 	public void imgProcessing(ImageProcessingFactory.Option option) throws FileNotFoundException{
-		HalftoneFactory.Option hOption = new HalftoneFactory.Option();		
-		Halftone filter = HalftoneFactory.createHalftone(tempImg, storage.getPath(), hOption);
-		hOption.setAngle(45);
+		ImageProcessing filter = ImageProcessingFactory.createImageProcessing(tempImg, storage.getPath(), option);
 		FileOutputStream out = new FileOutputStream(storage.getPath());
-		filter.convert().compress(Bitmap.CompressFormat.JPEG, 100, out);
-		//ImageProcessing filter = ImageProcessingFactory.createImageProcessing(tempImg, storage.getPath(), option);
-		//FileOutputStream out = new FileOutputStream(storage.getPath());
-		//filter.convert().compress(Bitmap.CompressFormat.JPEG, 100, out);
+		tempImg = filter.convert(); 
+		tempImg.compress(Bitmap.CompressFormat.JPEG, 100, out);
 		displayImage();
 		halftoned = true;
 		Button shareButton = (Button)findViewById(R.id.share_button);
