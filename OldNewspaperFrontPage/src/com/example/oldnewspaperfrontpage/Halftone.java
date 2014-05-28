@@ -60,6 +60,7 @@ public abstract class Halftone extends ImageProcessing {
 		Bitmap buffer = null;
 		if (angle > 0 && angle < 90)
 		{
+			/*
 			if (img.getWidth() * img.getHeight() > ANGLE_PIX_COUNT)
 			{
 				float scale = ANGLE_PIX_COUNT / (img.getWidth() * img.getHeight());
@@ -71,7 +72,7 @@ public abstract class Halftone extends ImageProcessing {
 				halftone.drawBitmap(img, matrix, null);
 				img = buffer;
 			}
-			
+			*/
 			buffer = Bitmap.createBitmap(img.getWidth() * 2, img.getHeight() * 2, img.getConfig());
 			Canvas halftone = new Canvas(buffer);
 			halftone.rotate(angle, buffer.getWidth() / 2f, buffer.getHeight() / 2f);
@@ -134,12 +135,12 @@ public abstract class Halftone extends ImageProcessing {
 
 		if (angle > 0 && angle < 90)
 		{
-			buffer = Bitmap.createBitmap(img.getWidth() * 2, img.getHeight() * 2, img.getConfig());
+			buffer = Bitmap.createBitmap(img.getWidth(), img.getHeight(), img.getConfig());
 			halftone = new Canvas(buffer);
 			halftone.rotate(-angle, buffer.getWidth() / 2f, buffer.getHeight() / 2f);
-			halftone.drawBitmap(img, img.getWidth() /2, img.getHeight() /2, null);
+			halftone.drawBitmap(img, 0, 0, null);
 			img = buffer;
-			buffer = Bitmap.createBitmap(img.getWidth() / 4, img.getHeight() / 4, img.getConfig());
+			buffer = Bitmap.createBitmap(img.getWidth() / 2, img.getHeight() / 2, img.getConfig());
 			int left = img.getWidth() / 2 - buffer.getWidth() / 2, top = img.getHeight() / 2 - buffer.getHeight() / 2;
 			Rect src = new Rect(left, top, left + buffer.getWidth(), top + buffer.getHeight());
 			Rect dest = new Rect(0, 0, buffer.getWidth(), buffer.getHeight());

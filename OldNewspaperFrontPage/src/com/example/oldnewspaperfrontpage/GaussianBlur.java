@@ -5,10 +5,10 @@ import android.graphics.Color;
 
 public class GaussianBlur extends ImageProcessing 
 {
-	static final int DEFAULT_RADIUS = 2;
-	static final double DEFAULT_SIGMA = 2.0;
+	static final int DEFAULT_RADIUS = 1;
+	static final double DEFAULT_SIGMA = 10.0;
 	int radius, size;
-	double sigma = 10.0;
+	double sigma;
 	double[][] kernel;
 	
 	public GaussianBlur(Bitmap tempImg, String imagePath) 
