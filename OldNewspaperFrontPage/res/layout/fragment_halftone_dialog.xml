@@ -41,22 +41,21 @@
 	            android:id="@+id/diamond"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:checked="true"
-	            android:onClick="setoptiondiamond"
+	            android:onClick="setOptionDiamond"
 	            android:text="@string/diamond" />
 			
             <RadioButton
                 android:id="@+id/rectangle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="setoptionrectangle"
+                android:onClick="setOptionRectangle"
                 android:text="@string/rectangle" />
 
             <RadioButton
                 android:id="@+id/circles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="setoptioncircle"
+                android:onClick="setOptionCircle"
                 android:text="@string/circle" />
         </RadioGroup>
 
@@ -64,7 +63,6 @@
             android:id="@+id/dialogok"
             android:layout_width="285dp"
             android:layout_height="wrap_content"
-            android:onClick="applyhalftone"
             android:text="@string/ok" />
 
     </LinearLayout>

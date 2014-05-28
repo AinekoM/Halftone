@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 
 
@@ -22,46 +23,64 @@ import android.graphics.RectF;
  ******************************************************************************/
 public abstract class Halftone extends ImageProcessing {
 	private final static int RGB_VALUE = 255;
+	private final static float ANGLE_PIX_COUNT = 1024 * 768;
 	protected int grid;
 	protected int angle;
 	//private  File outputfile = null;
-	
+
 	/****************************************************************************************
-     * Constructor of the Halftone class. 
+	 * Constructor of the Halftone class. 
 	 * @param imagePath 
-     * 
-     * @param String[] args Three parameters provided by user. First is the image to be converted,
-     * 						second is the output file path and third is the size of the grid.
-     * @pre none
-     * @post none
-     * @return new Halftone object
+	 * 
+	 * @param String[] args Three parameters provided by user. First is the image to be converted,
+	 * 						second is the output file path and third is the size of the grid.
+	 * @pre none
+	 * @post none
+	 * @return new Halftone object
 	 *****************************************************************************************/
 	public Halftone(Bitmap tempImg, String imagePath){
 		super(tempImg, imagePath);
 		grid = 10;
-		angle = 20;
+		angle = 0;
 	}
 	
-	public Halftone(Bitmap tempImg, String imagePath, int paraAngle){
-		super(tempImg, imagePath);
-		grid = 10;
+	public void setAngle(int paraAngle)
+	{
 		angle = paraAngle;
 	}
-	
+
 	/***************************************************************************************
-     * Converts image into halftone version.
-     * 
-     * @param none
-     * @return The Bitmap image already halftoned.
+	 * Converts image into halftone version.
+	 * 
+	 * @param none
+	 * @return The Bitmap image already halftoned.
 	 ***************************************************************************************/
 	public Bitmap convert() 
 	{ 
-		final int INIT_FLAG = 9000;
+		Bitmap buffer = null;
+		if (angle > 0 && angle < 90)
+		{
+			if (img.getWidth() * img.getHeight() > ANGLE_PIX_COUNT)
+			{
+				float scale = ANGLE_PIX_COUNT / (img.getWidth() * img.getHeight());
+				//scale = (float)Math.sqrt(scale);
+				Matrix matrix = new Matrix();
+				matrix.setScale(scale, scale);
+				buffer = Bitmap.createBitmap((int)(img.getWidth() * scale), (int)(img.getHeight() * scale), img.getConfig());
+				Canvas halftone = new Canvas(buffer);
+				halftone.drawBitmap(img, matrix, null);
+				img = buffer;
+			}
+			
+			buffer = Bitmap.createBitmap(img.getWidth() * 2, img.getHeight() * 2, img.getConfig());
+			Canvas halftone = new Canvas(buffer);
+			halftone.rotate(angle, buffer.getWidth() / 2f, buffer.getHeight() / 2f);
+			halftone.drawBitmap(img, img.getWidth() /2, img.getHeight() /2, null);
+			img = buffer;
+		}
 		Canvas halftone = new Canvas(img);
-		//halftone.save(INIT_FLAG);
 		boolean widthExceed = false, heightExceed = false;
 		int imgWidth = img.getWidth(), imgHeight = img.getHeight(), gridWidth = imgWidth / grid, gridHeight = imgHeight / grid;
-		//halftone.rotate(angle, imgWidth / 2f, imgHeight / 2f);
 		//Check for the grid size.
 		if (grid > imgWidth || grid > imgHeight)
 		{
@@ -112,16 +131,33 @@ public abstract class Halftone extends ImageProcessing {
 				paintGrid(halftone, gridX, gridY, imgWidth, imgHeight);
 			}
 		}
-		//halftone.restore();
+
+		if (angle > 0 && angle < 90)
+		{
+			buffer = Bitmap.createBitmap(img.getWidth() * 2, img.getHeight() * 2, img.getConfig());
+			halftone = new Canvas(buffer);
+			halftone.rotate(-angle, buffer.getWidth() / 2f, buffer.getHeight() / 2f);
+			halftone.drawBitmap(img, img.getWidth() /2, img.getHeight() /2, null);
+			img = buffer;
+			buffer = Bitmap.createBitmap(img.getWidth() / 4, img.getHeight() / 4, img.getConfig());
+			int left = img.getWidth() / 2 - buffer.getWidth() / 2, top = img.getHeight() / 2 - buffer.getHeight() / 2;
+			Rect src = new Rect(left, top, left + buffer.getWidth(), top + buffer.getHeight());
+			Rect dest = new Rect(0, 0, buffer.getWidth(), buffer.getHeight());
+			halftone = new Canvas(buffer);
+			halftone.drawBitmap(img, src, dest, null);
+			img = buffer;
+		}
+
+
 		return img;
 	}
-	
+
 	protected void paintGrid(Canvas htgrp, int gridX, int gridY, int limitX, int limitY)
 	{
 		float average = getGridAverage(gridX, gridY, limitX, limitY);
 		paintGrid(htgrp, average, gridX * grid, gridY * grid);
 	}
-	
+
 	protected float getGridAverage(int gridX, int gridY, int limitX, int limitY)
 	{
 		float average = 0, count = 0, startX = gridX * grid, startY = gridY * grid;
@@ -132,7 +168,7 @@ public abstract class Halftone extends ImageProcessing {
 			for (int y = (int) startY; y < limitY; y++)
 			{
 				int p = img.getPixel(x, y);
-				double currAverage = ((double)Color.blue(p) + (double)Color.red(p) + (double)Color.green(p)) / 3;
+				double currAverage = (0.114 * (double)Color.blue(p) + 0.299 * (double)Color.red(p) + 0.587 * (double)Color.green(p));
 				//Pre revision 1.1, the summing up is not necessary but the 
 				//value will be assigned back to each channel of the pixel.
 				average += currAverage; 
@@ -143,7 +179,7 @@ public abstract class Halftone extends ImageProcessing {
 		average = average / count;
 		return average;
 	}
-	
+
 	/*********************************************************************
 	 * Paint a grid cell of the image with the halftone version.
 	 * Any inheritted class will implement this method with the appropriate

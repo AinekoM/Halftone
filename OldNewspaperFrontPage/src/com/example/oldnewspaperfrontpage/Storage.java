@@ -119,12 +119,18 @@ public class Storage
 					bmOptions.inPurgeable = true;
 					photo = BitmapFactory.decodeStream(inStream, null, bmOptions);
 					bmOptions.inJustDecodeBounds = false;
-					int pixCount = photo.getWidth() + photo.getHeight();
+					int pixCount = bmOptions.outHeight * bmOptions.outWidth;
 					if (pixCount > maxPixCount)
 					{
-						int scale = maxPixCount / pixCount;
-						bmOptions.inSampleSize = (int)Math.sqrt(scale);
+						int scale = 1;
+						while (pixCount / (scale * scale) > maxPixCount)
+						{
+							scale++;
+						}
+						bmOptions.inSampleSize = scale;
 					}
+					inStream = new FileInputStream(tempImage);
+					bmOptions.inPurgeable = true;
 					bmOptions.inMutable = true;
 					bmOptions.inDither = true;
 					bmOptions.inPreferredConfig = Config.RGB_565;

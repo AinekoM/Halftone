@@ -41,6 +41,7 @@ public class HalftoneDialogActivity extends Activity implements OnSeekBarChangeL
 		}
 		currentValue = (TextView)findViewById(R.id.angleValue);
 		Button okButton = (Button)findViewById(R.id.dialogok);
+		okButton.setOnClickListener(new OkButtonClickListener());
 		img = storage.loadPhoto();
 	}
 	
@@ -73,15 +74,15 @@ public class HalftoneDialogActivity extends Activity implements OnSeekBarChangeL
 	}
 	
 	
-	public void setOptionDiamond(){
+	public void setOptionDiamond(View v){
 		option.setStyle(HalftoneStyle.DIAMOND);
 	}
 	
-	public void setOptionRectangle(){
+	public void setOptionRectangle(View v){
 		option.setStyle(HalftoneStyle.RECTANGLE);
 	}
 	
-	public void setOptionCircle(){
+	public void setOptionCircle(View v){
 		option.setStyle(HalftoneStyle.CIRCLE);
 	}
 	@Override
@@ -115,7 +116,7 @@ public class HalftoneDialogActivity extends Activity implements OnSeekBarChangeL
 
 	@Override
 	public void onProgressChanged(SeekBar bar, int value, boolean arg2) {
-		currentValue.setText(value);
+		currentValue.setText("Angle: "+value);
 		angle = value;
 	}
 
@@ -138,6 +139,7 @@ public class HalftoneDialogActivity extends Activity implements OnSeekBarChangeL
 	 * @throws FileNotFoundException
 	 */
 	public void halftone(HalftoneFactory.Option option, int degree) throws FileNotFoundException{
+		option.setAngle(degree);
 		Halftone filter = HalftoneFactory.createHalftone(img, storage.getPath(), option);
 		FileOutputStream out = new FileOutputStream(storage.getPath());
 		filter.convert().compress(Bitmap.CompressFormat.JPEG, 100, out);

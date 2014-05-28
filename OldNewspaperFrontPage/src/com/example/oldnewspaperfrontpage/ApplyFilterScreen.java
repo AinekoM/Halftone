@@ -10,6 +10,8 @@ import com.example.oldnewspaperfrontpage.HalftoneFactory.Option.HalftoneStyle;
 
 import android.support.v4.app.Fragment;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -35,6 +37,7 @@ import android.widget.ImageView;
  * @since	May 2014
  */
 public class ApplyFilterScreen extends Activity {
+	//HalftoneDialog builder;
 	Bitmap tempImg;	
 	final String TEMP_PHOTO_PATH_KEY = "com.example.oldnewspaperfrontpage.TEMP_PHOTO_PATH";
 	final String FLAG_HALFTONED_KEY = "com.example.oldnewspaperfrontpage.HALFTONED_KEY";
@@ -181,12 +184,6 @@ public class ApplyFilterScreen extends Activity {
 		startActivity(intent);
 	}
 	
-	private void chooseFilter(View v) {
-		Intent intent = new Intent(this, ChooseFilterActivity.class);
-		intent.putExtra(StartActivity.SEND_TEMP_IMAGE_PATH_KEY, storage.getPath());
-		startActivity(intent);
-	}
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -270,7 +267,20 @@ public class ApplyFilterScreen extends Activity {
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.halftone_menu, menu);
 	}
-
+	
+	public void showHalftoneOptions() {
+		Intent intent = new Intent(this, HalftoneDialogActivity.class);
+		intent.putExtra(StartActivity.SEND_TEMP_IMAGE_PATH_KEY, storage.getPath());
+		startActivity(intent);
+		halftoned = true;
+		Button shareButton = (Button)findViewById(R.id.share_button);
+		shareButton.setClickable(true);
+		Button editButton = (Button)findViewById(R.id.edit_button);
+		editButton.setClickable(true);
+		Button saveButton = (Button)findViewById(R.id.save_button);
+		saveButton.setClickable(true);
+	}
+	
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -278,25 +288,22 @@ public class ApplyFilterScreen extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		
 		// Handle item selection
-		HalftoneFactory.Option option = new HalftoneFactory.Option();
+		ImageProcessingFactory.Option option = new ImageProcessingFactory.Option();
 	    switch (item.getItemId()) {
 	    	case R.id.action_settings:
 	    		return true;
 	    		
 	        case R.id.applyht:
-			try {
-				option.setStyle(HalftoneStyle.DIAMOND);
-				halftone(option);
+				showHalftoneOptions();
+				//option.setStyle(HalftoneStyle.DIAMOND);
+				//halftone(option);
+				//TODO: should put halftoned=true here
 				return true;
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 	            
 	        case R.id.applynt:
 			try {
-				option.setStyle(HalftoneStyle.RECTANGLE);
-				halftone(option);
+				option.setEffect(ImageProcessingFactory.Effect.NEGATIVE);
+				imgProcessing(option);
 				return true;
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -304,8 +311,8 @@ public class ApplyFilterScreen extends Activity {
 			}
 	        case R.id.applygs:
 			try {
-				option.setStyle(HalftoneStyle.CIRCLE);
-				halftone(option);
+				option.setEffect(ImageProcessingFactory.Effect.GAUSSIAN);
+				imgProcessing(option);
 				return true;
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -327,15 +334,20 @@ public class ApplyFilterScreen extends Activity {
 	}
 	
 	/**************************************************************************
-	 * Perform halftoning on the current Bitmap with the given options.
+	 * Perform image processing on the current Bitmap with the given options.
 	 * 
 	 * @param option	The option specified by the user for this halftoning.
 	 * @throws FileNotFoundException
 	 */
-	public void halftone(HalftoneFactory.Option option) throws FileNotFoundException{
-		Halftone filter = HalftoneFactory.createHalftone(tempImg, storage.getPath(), option);
+	public void imgProcessing(ImageProcessingFactory.Option option) throws FileNotFoundException{
+		HalftoneFactory.Option hOption = new HalftoneFactory.Option();		
+		Halftone filter = HalftoneFactory.createHalftone(tempImg, storage.getPath(), hOption);
+		hOption.setAngle(45);
 		FileOutputStream out = new FileOutputStream(storage.getPath());
 		filter.convert().compress(Bitmap.CompressFormat.JPEG, 100, out);
+		//ImageProcessing filter = ImageProcessingFactory.createImageProcessing(tempImg, storage.getPath(), option);
+		//FileOutputStream out = new FileOutputStream(storage.getPath());
+		//filter.convert().compress(Bitmap.CompressFormat.JPEG, 100, out);
 		displayImage();
 		halftoned = true;
 		Button shareButton = (Button)findViewById(R.id.share_button);

@@ -13,7 +13,7 @@ public class ImageProcessingFactory
 		GAUSSIAN
 	};
 	
-	public class Option implements FactoryOption
+	public static class Option implements FactoryOption
 	{
 		Effect effect;
 		FactoryOption additionalOption;

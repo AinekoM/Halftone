@@ -29,7 +29,7 @@ public class HalftoneFactory {
 		}
 		
 		
-		//private int angle;
+		private int angle;
 		//private int gridSize;
 		private HalftoneStyle style;
 		
@@ -40,22 +40,22 @@ public class HalftoneFactory {
 		 */
 		public Option()
 		{
-			//angle = 0;
+			angle = 0;
 			//gridSize = 10;
 			style = HalftoneStyle.CIRCLE;
 		}
 		
-		/*
+		
 		public int getAngle()
 		{
 			return angle;
 		}
 		
-		public void setAngel(int paraAngle)
+		public void setAngle(int paraAngle)
 		{
 			angle = paraAngle;
 		}
-		
+		/*
 		public int getGridSize()
 		{
 			return gridSize;
@@ -115,6 +115,8 @@ public class HalftoneFactory {
 			halftone = new HalftoneDiamond(tempImg, imagePath);
 			break;
 		}
+		
+		halftone.setAngle(option.getAngle());
 		
 		return halftone;
 	}
