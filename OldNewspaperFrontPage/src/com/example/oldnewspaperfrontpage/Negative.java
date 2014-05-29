@@ -20,7 +20,7 @@ public class Negative extends ImageProcessing
 			for (int y = 0; y < img.getHeight(); y++)
 			{
 				int p = img.getPixel(x, y);
-				double currAverage = ((double)Color.blue(p) + (double)Color.red(p) + (double)Color.green(p)) / 3;
+				double currAverage = (0.114 * (double)Color.blue(p) + 0.299 * (double)Color.red(p) + 0.587 * (double)Color.green(p));
 				int inverse = RGB_VALUE - (int)currAverage;
 				img.setPixel(x, y, Color.rgb(inverse, inverse, inverse));
 			}

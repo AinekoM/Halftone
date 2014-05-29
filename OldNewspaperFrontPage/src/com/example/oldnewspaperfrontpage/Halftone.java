@@ -169,6 +169,7 @@ public abstract class Halftone extends ImageProcessing {
 			for (int y = (int) startY; y < limitY; y++)
 			{
 				int p = img.getPixel(x, y);
+				//average taken with luma coefficient to simulate human perception
 				double currAverage = (0.114 * (double)Color.blue(p) + 0.299 * (double)Color.red(p) + 0.587 * (double)Color.green(p));
 				//Pre revision 1.1, the summing up is not necessary but the 
 				//value will be assigned back to each channel of the pixel.
